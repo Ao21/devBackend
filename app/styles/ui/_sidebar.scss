@@ -1,0 +1,70 @@
+.media{
+    display:block;
+    @extend .cf;
+}
+    .media__img{
+        float:left;
+        margin-right:24px;
+    }
+    /**
+     * Reversed image location (right instead of left).
+     */
+    .media__img--rev{
+        float:right;
+        margin-left:24px;
+    }
+    
+        .media__img img,
+        .media__img--rev img{
+            display:block;
+        }
+    
+    .media__body{
+        overflow:hidden;
+    }
+        .media__body,
+        .media__body > :last-child{
+            margin-bottom:0;
+        }
+
+
+
+.page{
+    @extend .media;
+}
+.content{
+    @extend .media__body;
+}
+
+.sidebar{
+    width:360px;
+    @extend .media__img;
+}
+
+
+.sidebar{
+  position: absolute;
+  height: 100%;
+  background-color:$black;
+  color:$font-White;
+  img{
+    border-radius: 50%;
+  }
+  a{
+    color:$font-White;
+  }
+  & > .logo{
+    position:absolute;
+    bottom:0px;
+    line-height: 1.05;
+  }
+  .nav{
+    margin-top:150px!important;
+  }
+}
+
+
+.sidebar + div{
+  margin-left:360px;
+  overflow: hidden;
+}

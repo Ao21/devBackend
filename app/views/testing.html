@@ -1,0 +1,60 @@
+<div ng-repeat="event in events">{{event._id}}</div>
+
+<button ng-click="go()">Button!</button>
+<h1>Stages</h1>
+<button ng-click="listStages()">getStages!</button>
+<button ng-click="createStage()">Create a stage!</button>
+<button ng-click="updateStage()">update a stage!</button>
+<button ng-click="updateStageUsergroups()">update a stage usergroups!</button>
+<p ng-repeat="stage in stages">{{stage.name}} - id - {{stage._id}} -- {{stage.userGroups}}</p>
+
+<p>{{listStages}}</p>
+
+
+<h1>Create an Event</h1>
+<form ng-submit="createEvent()">
+	<h1>Event Name</h1>
+	<input type="text" ng-model="event.name">
+	<p>Event Author</p>
+	<input type="text" ng-model="event.author">
+	<p>Event Type</p>
+	<input type="text" ng-model="event.type">
+	<p>Staff Involved</p>
+	<input type="text" ng-model="event.staff">
+	<input type="submit" value="Add an event">
+</form>
+
+
+
+<h1>Event Item</h1>
+<form ng-submit="addEventItem()">
+	<p>Event Item Name</p>
+	<input type="text" ng-model="eventItem.name">
+	<p >Event Item Content</p>
+	<input type="text" ng-model="eventItem.content">
+	<p >Event Item Type</p>
+	<input type="text" ng-model="eventItem.type">
+	<p >Event Item Status</p>
+	<input type="text" ng-model="eventItem.status">
+	<input type="submit" value="Add event type!">
+</form>
+
+<h1>Event Items</h1>
+<button ng-click="getEventItems()">Get Event Items</button>
+<p ng-repeat="items in eventItems">{{items}}</p>
+
+<h1>Find Comments Items</h1>
+<form ng-submit="findComments()">
+<input type="text" ng-model="comment.id"></input>
+</form>
+<p ng-repeat="comment in comments">{{comment}}</p>
+
+<h1>Comments</h1>
+<form ng-submit="addComment()">
+<input type="text" ng-model="comment.input"></input>
+<input type="text" ng-model="comment.relatedTo"></input>
+	<input type="submit" value="A a Comment!">
+
+</form>
+
+

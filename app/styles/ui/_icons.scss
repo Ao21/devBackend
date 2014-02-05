@@ -1,0 +1,14 @@
+.circle.alert{margin-left:30px;}
+.circle.alert:before{
+	position:absolute;
+	content:"!";
+	margin-left:-30px;
+	color:white;
+	font-size:21px;
+	text-align:center;
+	width:25px;
+	font-weight:400;
+	height:25px;
+	border-radius:50%;
+	background-color:#a70800;
+}

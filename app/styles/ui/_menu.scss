@@ -1,0 +1,14 @@
+.menu{
+	height:55px;
+	background-color:$black;
+	color:white;
+	position: relative;
+	&.pulled{
+		margin-left:-24px;
+		p{
+			position:absolute;
+			bottom:4px;right:10px;
+			margin:0;
+		}
+	}
+}

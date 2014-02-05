@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+/*------------------------------------*\
+    STYLE.CSS
+\*------------------------------------*/
+/**
+ *
+ * sass --watch style.scss:style.min.css --style compressed
+ *
+ * Here we pull in some variables, include the inuit.css framework, then add our
+ * project-specific components afterwards.
+ */
+
+
+/**
+ * Setup
+ */
+
+@import "vars";
+@import "../bower_components/inuitcss/inuit";
+@import "../bower_components/font-awesome/css/font-awesome.css";
+
+
+@import "base/colors";
+@import "base/sections";
+@import "ui/defaults";
+@import "ui/header";
+@import "ui/sidebar";
+@import "ui/menu";
+@import "ui/icons";
+@import "ui/progressbar";
+@import "events/tasklist";
+
+
+
+
+
+
+/**
+ * She’s all yours, cap’n... Begin importing your stuff here.
+ */
+//@import "ui/example";

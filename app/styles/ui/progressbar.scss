@@ -1,0 +1,39 @@
+$cellHeight: 25px;
+$cellWidth: 90px;
+$cellColor: #f0f0f0;
+$skewDeg: 32deg;
+
+
+.progressbar{
+	.cell{float:left;margin-bottom: 10px;}
+	.cell{width:$cellWidth;height: $cellHeight;background-color:$cellColor;transform: skew($skewDeg,0deg);-o-transform: skew($skewDeg,0deg);-moz-transform: skew($skewDeg,0deg);-webkit-transform: skew($skewDeg,0deg);margin-left:0px;margin-right:8px;}
+	.cell:first-child{width:$cellWidth;height:0px;border-bottom:$cellHeight solid $cellColor;border-right:15px solid transparent;background-color:transparent;
+     transform: skew(0deg);
+     -o-transform: skew(0deg);
+     -moz-transform: skew(0deg);
+     -webkit-transform: skew(0deg);
+     margin-left:0px;
+     margin-right:0px;}
+     .cell:last-child{width:$cellWidth;height:0px;border-top:$cellHeight solid $cellColor;border-left:15px solid transparent;background-color:transparent;
+     transform: skew(0deg);
+     -o-transform: skew(0deg);
+     -moz-transform: skew(0deg);
+     -webkit-transform: skew(0deg);
+        transform: rotate(360deg);
+     -o-transform: rotate(360deg);
+     -moz-transform: rotate(360deg);
+     -webkit-transform: rotate(360deg);
+     margin-left:-7px;
+     margin-right:0px;}
+
+
+     .cell.active{background-color:$yellow;}
+     .cell.active:first-child{border-bottom:25px solid $yellow;background-color:transparent}
+     .cell.active:last-child{border-top:25px solid $yellow;background-color:transparent}
+
+
+     .cell.complete{background-color:$black;}
+     .cell.complete:first-child{border-bottom:25px solid $black;background-color:transparent}
+     .cell.complete:last-child{border-top:25px solid $black;background-color:transparent}
+
+}

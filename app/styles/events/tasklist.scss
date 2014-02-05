@@ -1,0 +1,61 @@
+
+.tasklist{
+
+	.currentStage{
+		width:100%;
+	}
+	ul{
+		li{
+			list-style: none
+			
+		}
+	}
+
+	.tasklist__item{
+		margin-bottom:$half-spacing-unit;
+	}
+
+	.tasklist__item--content{
+		background-color:#f0f0f0;
+	}
+
+
+}
+
+.eventslist__event{
+	position: relative;
+	float: left;
+	margin-bottom:$base-spacing-unit;
+	border-bottom:1px solid rgba(0,0,0,0.1);
+}
+
+
+.commentlist{
+
+	.commentlist--loadmorecomments{
+		background-color:#f0f0f0;
+		cursor:pointer;
+		text-align:center;
+		transition:margin 1s;
+		margin:0px 75px 0px 75px;
+		p{
+			
+		}
+	}
+
+	.commentlist--loadmorecomments:hover{
+		margin:0px 150px 0px 75px;
+	}
+
+	.commentlist__item{
+
+		margin-bottom:$half-spacing-unit;
+
+		
+		.media__img{border-radius:50%;width:50px;height:50px;}
+		.media__body{
+			border-bottom:1px solid rgba(0,0,0,0.1);
+			padding-bottom:12px;
+		}
+	}
+}
