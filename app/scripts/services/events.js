@@ -4,7 +4,7 @@ angular.module('devApp.eventServices', [])
   .factory('Events', function Events($http, Restangular) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
-    var _eventsService = Restangular.all('events/');
+    var _eventsService = Restangular.all('api/events/');
 
 
     return{
@@ -26,7 +26,7 @@ angular.module('devApp.eventServices', [])
 
   }).factory('EventItems',function EventItems(Restangular){
 
-  	var _eventItemService = Restangular.all('eventitem/');
+  	var _eventItemService = Restangular.all('api/eventitem/');
 
 
   	return{
@@ -56,4 +56,13 @@ angular.module('devApp.eventServices', [])
 
   		}
   	
-  });
+  })
+  .factory('EventTypeService',function EventTypeService(Restangular){
+    return{
+      getAllEventTypes: function(){
+
+        var dummyEventTypes = ['Lecture','Award Ceremony', 'Conference', 'Workshop', 'Exhibitions','Information Night']
+        return dummyEventTypes;
+      }
+    }
+  })

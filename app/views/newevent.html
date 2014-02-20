@@ -1,0 +1,56 @@
+<div class="pane full">
+	<div class="menu pulled miniPane">
+		<p>create a new event</p>
+	</div>
+
+	
+
+	<section class="eventTypeForm one-whole">
+		<div ng-controller="eventTypeController" class="miniPane main">
+		<h1>Event Type</h1>
+		<h4>What kind of event are you planning?</h4>
+		<event-type-grid></event-type-grid>
+		</div>
+		<div class="miniPane side soft" style="margin-top:95px">
+			<p class=""></p>
+		</div>
+	</section>
+	<section class="eventDetails one-whole">
+		<div class="">
+			<h4 class="push--top">What is the name of your event?</h4>
+			<input type="text">
+			<h4 class="push--top">Can you give a brief description of the event?</h4>
+			<div class="overhang">
+				<p></p>
+			</div>
+
+			<textarea></textarea>
+			<h4 class="push--top">Where and when is the event on?</h4>
+			
+
+		
+	</section>
+	
+	<section class="float--left">
+	<div >
+    
+    <add-location></add-location>
+    
+</div>
+<ul>
+</ul>
+</section>
+
+<section class="float--left">
+		<li ng-repeat="date in locationList">{{date}}</li>
+
+</section>
+
+
+	
+
+
+	 
+
+
+</div>

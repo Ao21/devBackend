@@ -12,8 +12,6 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css styles/vendor.css -->
-    <!-- bower:css -->
-    <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
@@ -54,25 +52,34 @@
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
+    <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+    <script src="bower_components/restangular/dist/restangular.js"></script>
     <!-- endbower -->
+    <script src="bower_components/ngQuickDate/dist/ng-quick-date.min.js"></script>
+
     <!-- endbuild -->
-<script src="bower_components/restangular/dist/restangular.min.js"></script>
-    <script src="bower_components/lodash/dist/lodash.min.js"></script>
+
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/dashboard.js"></script>
         <script src="scripts/controllers/testing.js"></script>
+        <script src="scripts/controllers/newEvent.js"></script>
         <script src="scripts/services/events.js"></script>
         <script src="scripts/services/stages.js"></script>
+        <script src="scripts/services/locations.js"></script>
+        <script src="scripts/directives/location.js"></script>
         <script src="scripts/services/user.js"></script>
         <script src="scripts/services/comments.js"></script>
+
+
         <script src="scripts/random.js"></script>
         <!-- endbuild -->
 </body>

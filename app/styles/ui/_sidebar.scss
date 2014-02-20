@@ -47,6 +47,7 @@
   height: 100%;
   background-color:$black;
   color:$font-White;
+
   img{
     border-radius: 50%;
   }
@@ -61,7 +62,10 @@
   .nav{
     margin-top:150px!important;
   }
+
+  .fa-plus-circle{font-size:70px;margin-left:260px;}
 }
+
 
 
 .sidebar + div{

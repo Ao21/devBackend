@@ -3,7 +3,7 @@
 angular.module('devApp.stageServices', [])
   .factory('Stages',function Stages(Restangular){
 
-    var stages = Restangular.all('stage');
+    var stages = Restangular.all('api/stage');
           
     return{
       linkStageToEvent: function(eventId, stage){

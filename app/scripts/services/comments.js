@@ -3,7 +3,7 @@
 angular.module('devApp.commentService', [])
   .factory('Comments',function Stages(Restangular){
 
-    var comments = Restangular.all('comment');
+    var comments = Restangular.all('api/comment');
           
     return{
 

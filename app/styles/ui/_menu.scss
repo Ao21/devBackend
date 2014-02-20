@@ -3,6 +3,7 @@
 	background-color:$black;
 	color:white;
 	position: relative;
+	margin-bottom:24px;
 	&.pulled{
 		margin-left:-24px;
 		p{
@@ -10,5 +11,8 @@
 			bottom:4px;right:10px;
 			margin:0;
 		}
+	}
+	&.miniPane{
+		width:72%;
 	}
 }

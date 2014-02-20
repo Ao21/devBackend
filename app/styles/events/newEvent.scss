@@ -1,0 +1,82 @@
+
+.eventTypeForm{
+	float:left;
+	.eventType{
+		cursor:pointer;
+		position: relative;
+		height:90px;
+		margin-bottom:$base-spacing-unit;
+		border:5px dashed $yellow;
+		text-align: center;
+		transition: all 0.4s;
+		background-color:white;color:$black;
+		&:hover{background-color:$yellow;color:white}
+		&.active{background-color:$yellow;color:white}
+	}
+
+}
+
+.eventDetails{
+	float:left;
+}
+
+
+.eventTypeForm, .eventDetails{
+input[type="text"]{
+  border-radius: 3px;
+  box-shadow: none;
+  border: 1px solid white;
+  /* height: 30px; */
+  font-size: 24px;
+  padding: 13px;
+  min-width: 40%;
+  background-color: #f5af00;
+  color:white;
+  transition: all 0.4s;
+}
+
+textarea{
+  border-radius: 3px;
+  box-shadow: none;
+  border: 1px solid white;
+  min-height: 250px;
+  /* height: 30px; */
+  padding: 13px;
+  min-width: 60%;
+  background-color: #f5af00;
+  color:white;
+  transition: all 0.4s;
+}
+
+input:focus,textarea:focus{
+	border: 1px solid #f5af00;
+  background-color: white;
+  /* border-radius: 30px; */
+  color: black;
+  border-radius: 7px;
+  outline:none;
+}
+}
+
+.outerContainer
+{
+	display: table;
+	height: 102px;
+	overflow: hidden;
+	width: 100%;
+}
+
+.outerContainer .innerContainer
+{
+	display: table-cell;
+	vertical-align: middle;
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+
+location,new-location{
+  height:350px;
+  float:left;
+}

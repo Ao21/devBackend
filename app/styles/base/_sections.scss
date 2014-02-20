@@ -3,4 +3,20 @@
 	float: left;
 	&.main{width:70%;}
 	&.side{width:30%;}
+	&.full{width:100%;}
+
+
+	.overhang{
+		position:absolute;
+		width:25%;
+		right:0;
+	}
+}
+
+
+.miniPane{
+	float: left;
+	&.main{width:70%;}
+	&.side{width:30%;}
+	&.full{width:100%;}
 }

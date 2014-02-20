@@ -11,21 +11,31 @@ var devApp = angular.module('devApp', [
   'devApp.eventServices',
   'devApp.stageServices',
   'devApp.commentService',
-  'devApp.userServices'
-])
+  'devApp.userServices',
+  'devApp.locationServices',
+  'ngQuickDate'
+  ])
   .config( function($routeProvider,$locationProvider) {
 
     $routeProvider.when('/',
       { controller:   'DashboardController',
-        templateUrl:   'views/dashboard.html'
+        templateUrl:   '/views/dashboard.html'
+    })
+    .when('/event/newEvent',{
+      controller: 'NewEvController',
+      templateUrl: '/views/newevent.html'
+    })
+    .when('/event/newEvent2',{
+      controller: 'newLocation',
+      templateUrl: '/views/newLocation.html'
     })
     .when('/blah',
       {
       controller: 'TestController',
-      templateUrl: 'views/testing.html'
+      templateUrl: '/views/testing.html'
     }).
     otherwise({redirectTo:'/'});
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(false);
 
 
    
@@ -38,7 +48,6 @@ var devApp = angular.module('devApp', [
 
       
     });
-
 
 
 
