@@ -4,10 +4,11 @@
 	</div>
 
 	
-
+	
+		
 	<section class="eventTypeForm one-whole">
-		<div ng-controller="eventTypeController" class="miniPane main">
-		<h1>Event Type</h1>
+		<div class="miniPane main">
+		<h1>Event Type: {{chosenEventType || 'Lecture'}}</h1>
 		<h4>What kind of event are you planning?</h4>
 		<event-type-grid></event-type-grid>
 		</div>
@@ -15,35 +16,39 @@
 			<p class=""></p>
 		</div>
 	</section>
-	<section class="eventDetails one-whole">
-		<div class="">
-			<h4 class="push--top">What is the name of your event?</h4>
-			<input type="text">
-			<h4 class="push--top">Can you give a brief description of the event?</h4>
-			<div class="overhang">
-				<p></p>
+
+	<form name="standardEventForm" class="standardEventForm one-whole float--left" ng-submit="submitForm()" novalidate>
+		<div class="form-group standard">
+			<label>What is the name of your event?</label>
+			<input name="name" ng-model="name" type="text" myBlur required>
+			<p ng-show="standardEventForm.name.$invalid && !standardEventForm.name.$pristine" class="help-block">The name of the event is required.</p>
+
+		</div>
+		<div class="form-group standard">
+			<label for="">Can you give a brief description of the event?</label>
+			<textarea ng-model="event.description"></textarea>
+		</div>
+		<div class="form-group standard">
+			<label for="">Is this a once off event or a series?</label>
+		</div>
+		<div class="form-group location">
+			<label for="">When and Where is the event on?</label>
+			<div>
+			<add-location></add-location>
 			</div>
-
-			<textarea></textarea>
-			<h4 class="push--top">Where and when is the event on?</h4>
-			
-
+		</div>
 		
-	</section>
+
+
 	
-	<section class="float--left">
-	<div >
+    </form>
     
-    <add-location></add-location>
-    
-</div>
-<ul>
-</ul>
-</section>
+
 
 <section class="float--left">
 		<h1>Dates</h1>
-		<li ng-repeat="date in locationList">{{date}}</li>
+		<li ng-repeat="date in locationList" 
+		>{{date}}</li>
 
 
 </section>

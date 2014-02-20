@@ -1,10 +1,6 @@
-
-/**
-*
-* New Event Creation Controller
-*
-**/
-
+/*=============================================
+=            New Event Controllers            =
+=============================================*/
 
 
 
@@ -21,7 +17,13 @@ devApp.controller('NewEvController',
 
     
 
-    console.log($scope.eventTypeList);
+    
+
+
+    this.setEventType = function(e){
+    	console.log(e);
+    	$scope.$parent.chosenEventType = e;
+    }
 
 
     
@@ -36,30 +38,49 @@ devApp.controller('NewEvController',
     }
 
 
+    $scope.submitForm = function() {
+
+			// check to make sure the form is completely valid
+			if ($scope.userForm.$valid) {
+				alert('our form is amazing');
+			}
+
+		};
+
+
 
 
 
   });
 
 
-
-devApp.controller('eventTypeController', function($scope){
-  var ctrl = this,
-  eventTypes = ctrl.eventTypes = $scope.eventTypes = [];
-
-  ctrl.select = function(selectedEventType){
-    angular.forEach(eventTypes, function(eventType){
-      if(eventType.active && eventType !== selectedEventType){
-        eventType.active = false;
-        eventType.onDeselect();
-      }
-    });
-    selectedEventType.active = true;
-    selectedEventType.onSelect();
-  }
+/*-----  End of New Event Controllers  ------*/
 
 
+
+
+/**
+*
+* Event Type Directives
+* Creates Event Types from the event section grid
+*
+*
+**/
+
+devApp.directive('myBlur', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+            element.bind('blur', function () {
+                //apply scope (attributes)
+                scope.$apply(attr.myBlur);
+                //return scope value for focusing to false
+                scope.$eval(attr.myFocus + '=false');
+            });
+        }
+    };
 });
+
 
 
 devApp.directive('eventTypeGrid',function(){
@@ -70,7 +91,7 @@ devApp.directive('eventTypeGrid',function(){
     scope:{
       type:'@'
     },
-    controller:'eventTypeController',
+    controller:'NewEvController',
     template: '<div class="grid"><event-type-directive></event-type-directive></div>'
   }
 })
@@ -86,29 +107,16 @@ devApp.directive('eventTypeDirective', function($parse, EventTypeService){
       onSelect: '&select',
       onDeselect: '&deselect'
     },
-    template:   '<div ng-repeat="eventType in eventTypeList" disabled="eventType.disabled" active="eventType.active" class="grid__item one-fifth"><div class="eventType"><div class="outerContainer"><div class="innerContainer"><p>{{eventType}}</p></div></div></div></div>',
+    template:   '<div ng-repeat="eventType in eventTypes" ng-click="itemClicked($index, this.eventType)" class="grid__item one-fifth"><div class="eventType"  ng-class="{ active : $index == selectedIndex }"><div class="outerContainer"><div class="innerContainer"><p>{{eventType}}</p></div></div></div></div>',
     link: function(scope, element, attrs, evTypeCtrl ){
-      scope.eventTypeList = EventTypeService.getAllEventTypes();
+      scope.eventTypes = EventTypeService.getAllEventTypes();
 
-      scope.$watch('active', function(active) {
-          if (active) {
-            evTypeCtrl.select(scope);
-          }
-        });
+      scope.selectedIndex = 0;
 
-      scope.disabled = false;
-        if ( attrs.disabled ) {
-          scope.$parent.$watch($parse(attrs.disabled), function(value) {
-            scope.disabled = !! value;
-          });
-        }
-
-        scope.select = function() {
-          if ( !scope.disabled ) {
-            console.log('hi');
-            scope.active = true;
-          }
-        };
+      scope.itemClicked = function($index, el){
+      	evTypeCtrl.setEventType(el);
+      	scope.selectedIndex = $index;
+      }
 
 
     }
@@ -139,7 +147,7 @@ devApp.directive('location',function($compile,LocationServices){
     },
     replace:false,
     controller:'NewEvController',
-    template:function(tElement, tAttrs){ return '<p id="'+tAttrs.username+' {{username}}">New Location</p><datepicker ng-model="thisDate"></datepicker><location-dropdown ng-model="area" id=""></location-dropdown><p>Date: {{thisDate | date:"medium"}}</p><button ng-click="newEntry()">Add Location</button>'},
+    template:function(tElement, tAttrs){ return '<label>Select a date</label><datepicker ng-model="thisDate"></datepicker><label>Select a Location</label><location-dropdown ng-model="area" id=""></location-dropdown><i ng-click="newEntry()" class="fa fa-check-circle-o"></i>'},
     link: function(scope,element,attrs,controller){
       var lastDate = '';
       scope.newEntry = function(){
@@ -167,7 +175,7 @@ devApp.directive('location',function($compile,LocationServices){
 devApp.directive('addLocation',function($compile){
   return{
     restrict: "E",
-    template: '<button ng-click="newLoc()">Add Location</button>',
+    template: '<i ng-click="newLoc()" class="fa fa-plus-circle push--right"></i>',
     replace:true,
     link: function(scope,element, attrs){
       var userNo =0;
@@ -175,7 +183,7 @@ devApp.directive('addLocation',function($compile){
         var newElement = angular.element(document.createElement('location'));
         newElement.attr('userName', userNo);
         var el = $compile(newElement)(scope);
-        element.parent().append(el);
+        element.parent().prepend(el);
         userNo++;
       }
 
@@ -209,109 +217,55 @@ devApp.directive('addLocation',function($compile){
 
 
 
-/* 
-.directive('newLocation',function($compile,LocationServices){
-   return{
-    restrict: "E",
-    replace:true,
-    require: '^ngController',
-    scope:{
-      ngModel: '='
-    },
-    template:"<p ng-click='add()'>Add a new location</p>",
-    link: function($scope, element, attrs, topCtrl){
-      var locNo= 0, previousLocationDates="";
-      $scope.add = function(ev, attzrs){
-
-        var a = angular.element('<div ng-model="newLocation" class="newlocation">
-          <datepicker ng-model="location.dates" id="{{date}}" ng-value="dates"></datepicker>
-          <location-dropdown ng-model="location.area" id="'+locNo+'"></location-dropdown></div>');
-        var el = $compile(a) ($scope);
-        angular.element(element.parent()).append(a);
-        //$scope.insertHere = a;
 
 
-        locNo++;
-        
+/**
+*
+* Blur Directive
+*
+**/
 
-      }
 
-      $scope.$watch('location',function(val){
-        
-          if(val && previousLocationDates!= val){
-            console.log(val.name);
-            //topCtrl.updateLocations(val);
-            //previousLocationDates === val;
+
+var blurFocusDirective = function () {
+    return {
+        restrict: 'E',
+        require: '?ngModel',
+        link: function (scope, elm, attr, ctrl) {
+            if (!ctrl) {
+                return;
             }
 
-          
-        })
-    }
-  }
-})
+            elm.on('focus', function () {
+                elm.addClass('has-focus');
 
+                scope.$apply(function () {
+                    ctrl.hasFocus = true;
+                });
+            });
 
+            elm.on('blur', function () {
+                elm.removeClass('has-focus');
+                elm.addClass('has-visited');
 
-  .directive('myDirective', function($compile) {
-    return {
-    require: 'ngModel',
-    restrict: 'E',
-    template: '<p ng-click="add()">Add a Location</p>',
-    replace: true,
-    scope:{
-      ngModel : '='
-    },
-    
+                scope.$apply(function () {
+                    ctrl.hasFocus = false;
+                    ctrl.hasVisited = true;
+                });
+            });
 
-    link: function($scope, element, attrs, NewEvController){
-      var locNo= 0;
+            elm.closest('form').on('submit', function () {
+                elm.addClass('has-visited');
 
-      $scope.add = function(ev,attrs){
-          var datepicker = angular.element(document.createElement('datepicker'));
-          var ngModelId = 'location' + locNo + '.date';
-          datepicker.attr('ng-model',ngModelId);
-          var el = $compile( datepicker ) ($scope);
-          angular.element(document.body).append(datepicker);
+                scope.$apply(function () {
+                    ctrl.hasFocus = false;
+                    ctrl.hasVisited = true;
+                });
+            });
 
-          $scope.insertHere = el;
-          locNo++;
+        }
+    };
+};
 
-        };
-
-        $scope.$watch('ngModel',function(v){
-         console.log(v);
-        })
-
-       
-
-
-
-    }
-
-    }
-});
-
-
-
- .directive('nLoc',function($scope){
-    return{
-      template: '<p>Add a Location</p>',
-      restrict: 'A',
-      replace: false,
-      link: function($scope, element, attrs){
-        $scope.add = function(ev,attrs){
-          var datepicker = angular.element(document.createElement('datepicker'));
-          var ngModelId = 'locationID' + locNumber;
-          datepicker.attr('ng-model','location.date');
-          var el = $compile( datepicker ) ($scope);
-          angular.element(document.body).append(datepicker);
-
-          $scope.insertHere = el;
-        };
-
-      }
-    }
-
-  });
-
-  */
+devApp.directive('input', blurFocusDirective);
+devApp.directive('textarea', blurFocusDirective);

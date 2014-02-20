@@ -6,8 +6,8 @@ angular.module('devApp.locationServices', [])
 
 
 
-    var locations = [{'name':'The Hearth','imagePath':'/images/hearth.jpg'},
-                    {'name':'East Wing','imagePath':'/images/hearth.jpg'}
+    var locations = [{'name':'The Hearth','imagePath':'/images/hearth.jpg','capacity':500},
+                    {'name':'East Wing','imagePath':'/images/hearth.jpg', 'capacity':1000}
     ];
 
     return{
