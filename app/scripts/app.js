@@ -12,8 +12,7 @@ var devApp = angular.module('devApp', [
   'devApp.stageServices',
   'devApp.commentService',
   'devApp.userServices',
-  'devApp.locationServices',
-  'ngQuickDate'
+  'devApp.locationServices'
   ])
   .config( function($routeProvider,$locationProvider) {
 

@@ -7,6 +7,12 @@
     margin-top:1.5rem;
   }
 
+  .form-group{
+    float:left;
+    margin-top:16px;
+    width:100%;
+  }
+
 
   .form-group.location{
     .fa-plus-circle{
@@ -135,4 +141,28 @@ textarea{min-height: 250px;}
 location,new-location{
   height:350px;
   float:left;
+}
+
+
+
+add-staff{
+  & > table.user-result{
+    td.user-image{
+      img{max-height:50px;}
+    }
+
+  }
+}
+
+.this-or-this{
+  p{
+    background-color:$black;
+    color:white;
+    border-radius:10px;
+    height: 80px;
+    font-weight: 200;
+  }
+  p.active{
+     background-color:$yellow;
+  }
 }

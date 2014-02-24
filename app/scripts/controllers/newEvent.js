@@ -8,6 +8,8 @@ devApp.controller('NewEvController',
   function($scope, EventTypeService){
 
 
+  	$scope.onceOrSeriesToggle= true;
+
     $scope.locationList = [];
 
     this.getLocLength = function(){
@@ -17,11 +19,7 @@ devApp.controller('NewEvController',
 
     
 
-    
-
-
     this.setEventType = function(e){
-    	console.log(e);
     	$scope.$parent.chosenEventType = e;
     }
 
@@ -34,6 +32,12 @@ devApp.controller('NewEvController',
       var doesThisExist = _.find($scope.$parent.locationList,{'locId':val.locId});
       if(!doesThisExist){
         $scope.$parent.locationList.push(nVal);
+      }
+      else{
+      	var a = _.indexOf($scope.$parent.locationList,{'locId':val.locId});
+			$scope.$parent.locationList.splice(a, 1);
+      	$scope.$parent.locationList.push(val);
+
       }
     }
 
@@ -48,7 +52,12 @@ devApp.controller('NewEvController',
 		};
 
 
+		$scope.onceOrSeries = function(){
+			$scope.onceOrSeriesToggle = !$scope.onceOrSeriesToggle;
+		}
 
+
+		$
 
 
   });
@@ -123,7 +132,15 @@ devApp.directive('eventTypeDirective', function($parse, EventTypeService){
 }
 });
 
+/*
 
+ devApp.config(function(ngQuickDateDefaultsProvider) {
+    ngQuickDateDefaultsProvider.set('parseDateFunction', function(str) {
+      d = Date.create(str);
+      return d.isValid() ? d : null;
+    });
+  })
+*/
 /**
 *
 * Location Directive
@@ -143,20 +160,42 @@ devApp.directive('location',function($compile,LocationServices){
   return {
     restrict: "E",
     scope:{
-      username: '='
+      locId: '='
     },
     replace:false,
     controller:'NewEvController',
-    template:function(tElement, tAttrs){ return '<label>Select a date</label><datepicker ng-model="thisDate"></datepicker><label>Select a Location</label><location-dropdown ng-model="area" id=""></location-dropdown><i ng-click="newEntry()" class="fa fa-check-circle-o"></i>'},
+    template:function(tElement, tAttrs){ return '<label>Select a date</label><date-picker ng-model="thisDate"></date-picker><label>Pick a time</label><time-picker ng-model="thisTime"></time-picker><label>Select a Location</label><location-dropdown ng-model="area" id=""></location-dropdown><i  ng-click="newEntry()" class="fa fa-check-circle-o"></i>'},
     link: function(scope,element,attrs,controller){
       var lastDate = '';
+
+      scope.isDisabled = false;
+
+
+       scope.$watch('[thisDate, thisTime, area]', function (a) {
+	       if(a[0] && a[1] && a[2]){
+	       	scope.isDisabled = true;
+
+	       }
+	        }, true);
+
       scope.newEntry = function(){
-        var locObject = {
-          locId:'loc'+scope.username,
-          date:scope.thisDate,
-          area:scope.area
-        };
-        controller.addNewLocation(locObject);
+      	if(scope.isDisabled===true){
+	      	if(scope.thisDate.obj && scope.thisTime.hour){
+		      	var d = moment(scope.thisDate.obj);
+		      	d.hour(scope.thisTime.hour);
+		      	d.minute(scope.thisTime.mins);
+		      }
+
+
+	        var locObject = {
+	          locId:'loc'+attrs.locid,
+	          date:d,       
+	          area:scope.area
+	        };
+	       
+	        LocationServices.checkIfBooked(d,scope.area.name)
+	        controller.addNewLocation(locObject);
+	    }
       }
     }
   }
@@ -178,13 +217,13 @@ devApp.directive('addLocation',function($compile){
     template: '<i ng-click="newLoc()" class="fa fa-plus-circle push--right"></i>',
     replace:true,
     link: function(scope,element, attrs){
-      var userNo =0;
+      var locNo =1;
       scope.newLoc = function(){
         var newElement = angular.element(document.createElement('location'));
-        newElement.attr('userName', userNo);
+        newElement.attr('locId', locNo);
         var el = $compile(newElement)(scope);
-        element.parent().prepend(el);
-        userNo++;
+        element.parent().find('.locList').append(el);
+        locNo++;
       }
 
     }
@@ -213,9 +252,119 @@ devApp.directive('addLocation',function($compile){
 
 
 
+/**
+*
+* Datepicker Directive
+*
+**/
 
 
 
+.directive('datePicker', function($parse){
+    var linker = function(element, attrs) {
+
+    	var model = $parse(attrs.ngModel);
+
+    	return function(scope, element, attrs, controller){
+        $(element).find("input").pickadate({onSet: function(content){
+        	processNewDate(this.get('select'));
+        }});
+
+
+        var processNewDate = function(newD){
+        	scope.$apply(function(scope){
+        		model.assign(scope,newD);
+        	})
+        }
+
+        }
+    };
+    return {
+        restrict: "E",
+        compile: linker,
+        template: "<input type=\"text\">"
+    }
+})
+
+
+/**
+*
+* Timepicker Directive
+*
+**/
+
+
+.directive('timePicker', function($parse){
+    var linker = function(element, attrs) {
+
+    	var model = $parse(attrs.ngModel);
+
+    	return function(scope, element, attrs, controller){
+        $(element).find("input").pickatime({ 
+        	min: [7,30],
+    		max: [22,0],
+    		onSet: function(content){
+        	processNewDate(this.get('select'));
+        }});
+
+
+        var processNewDate = function(newD){
+        	scope.$apply(function(scope){
+        		model.assign(scope,newD);
+        	})
+        }
+
+        }
+    };
+    return {
+        restrict: "E",
+        compile: linker,
+        template: "<input type=\"text\">"
+    }
+})
+
+
+/**
+*
+* Staff Picker Directive
+*
+**/
+
+
+.directive('addStaff',function(UserServices){
+	var compiler = function(element, attrs){
+		return function(scope, element, attrs, controller){
+			var a = UserServices.getAllUsersJson();
+			var elAppend = $(element).find('.staffList');
+
+			var selectOptions = {
+				tags:true,
+				tokenSeparators: [","],
+				data:a,
+				width:'40%',
+				createSearchChoice: function(term, data) {
+				    if ($(data).filter(function() {
+				      return this.text.localeCompare(term) === 0;
+				    }).length === 0) {
+				      return {
+				        id: term,
+				        text: term
+				      };
+				    }
+				  },
+				multiple: true,
+			}
+
+			$(element).find('input').select2(selectOptions);
+		}
+	};
+	return{
+		restrict: "E",
+		compile: compiler,
+		template: "<input type='hidden' id='category' /><div class='staffList'></div>"
+	}
+
+})
 
 
 
@@ -226,10 +375,10 @@ devApp.directive('addLocation',function($compile){
 **/
 
 
-
-var blurFocusDirective = function () {
-    return {
-        restrict: 'E',
+.directive('blurFocus',
+  function(){
+   return {
+        restrict: 'A',
         require: '?ngModel',
         link: function (scope, elm, attr, ctrl) {
             if (!ctrl) {
@@ -265,7 +414,5 @@ var blurFocusDirective = function () {
 
         }
     };
-};
+})
 
-devApp.directive('input', blurFocusDirective);
-devApp.directive('textarea', blurFocusDirective);

@@ -20,32 +20,50 @@
 	<form name="standardEventForm" class="standardEventForm one-whole float--left" ng-submit="submitForm()" novalidate>
 		<div class="form-group standard">
 			<label>What is the name of your event?</label>
-			<input name="name" ng-model="name" type="text" myBlur required>
+			<input name="name" ng-model="name" type="text" blur-focus required>
 			<p ng-show="standardEventForm.name.$invalid && !standardEventForm.name.$pristine" class="help-block">The name of the event is required.</p>
 
 		</div>
 		<div class="form-group standard">
 			<label for="">Can you give a brief description of the event?</label>
-			<textarea ng-model="event.description"></textarea>
+			<textarea blur-focus ng-model="event.description"></textarea>
 		</div>
 		<div class="form-group standard">
 			<label for="">Is this a once off event or a series?</label>
+				<div class="one-half">
+				 <h1 class=this-or-this>
+			       <p href=# class="this-or-this__this  two-fifths" ng-click="onceOrSeries()" ng-class="{true: 'active', false: ''}[onceOrSeriesToggle]"> 
+			           Once
+			       </p>
+			       <span class="this-or-this__or  one-fifth">
+			           or
+			       </span>
+			       <p href=# class="this-or-this__this  two-fifths" ng-click="onceOrSeries()" ng-class="{true: '', false: 'active'}[onceOrSeriesToggle]" >
+			           Series
+			       </p>
+			   </h1>
+			</div>
 		</div>
 		<div class="form-group location">
 			<label for="">When and Where is the event on?</label>
 			<div>
+			<div class="locList">
+				<location locId="0"></location>
+			</div>
 			<add-location></add-location>
+
 			</div>
 		</div>
-		
-
-
-	
+		<div class="form-group staff">
+			<label>Who is in involved in the event?</label>
+			<add-staff></add-staff>
+		</div>
     </form>
     
 
 
 <section class="float--left">
+	<div date-picker="start"></div>
 		<h1>Dates</h1>
 		<li ng-repeat="date in locationList" 
 		>{{date}}</li>
