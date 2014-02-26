@@ -6,9 +6,7 @@ angular.module('devApp.locationServices', [])
 
 
 
-    var locations = [{'name':'The Hearth','imagePath':'/images/hearth.jpg','capacity':500},
-                    {'name':'East Wing','imagePath':'/images/hearth.jpg', 'capacity':1000}
-    ];
+    var locations = [{'id':0,'text':'The Hearth','name':'The Hearth','imagePath':'/images/hearth.jpg','capacity':500},{'id':1,'text':'East Wing','name':'East Wing','imagePath':'/images/hearth.jpg', 'capacity':1000}];
 
     return{
       getLocations: function(){

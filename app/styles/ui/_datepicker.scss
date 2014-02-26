@@ -1,3 +1,4 @@
+@charset "utf-8";
 .quickdate{display:inline-block;position:relative}
 .quickdate-button div,.quickdate-action-link div{display:inline}
 .quickdate-popup{z-index:10;background-color:$black;border:solid 1px #000;text-align:center;width:250px;display:none;position:relative;padding:5px;transition:all 0.4s;color:white}

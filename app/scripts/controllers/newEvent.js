@@ -52,6 +52,7 @@ devApp.controller('NewEvController',
 		};
 
 
+
 		$scope.onceOrSeries = function(){
 			$scope.onceOrSeriesToggle = !$scope.onceOrSeriesToggle;
 		}
@@ -161,41 +162,46 @@ devApp.directive('location',function($compile,LocationServices){
     restrict: "E",
     scope:{
       locId: '='
-    },
+      },
     replace:false,
     controller:'NewEvController',
-    template:function(tElement, tAttrs){ return '<label>Select a date</label><date-picker ng-model="thisDate"></date-picker><label>Pick a time</label><time-picker ng-model="thisTime"></time-picker><label>Select a Location</label><location-dropdown ng-model="area" id=""></location-dropdown><i  ng-click="newEntry()" class="fa fa-check-circle-o"></i>'},
-    link: function(scope,element,attrs,controller){
-      var lastDate = '';
+    templateUrl:function(tElement, tAttrs){ return 'partials/locationSelector.html'},
+    compile:function(tElement, tattrs){
 
-      scope.isDisabled = false;
-
-
-       scope.$watch('[thisDate, thisTime, area]', function (a) {
-	       if(a[0] && a[1] && a[2]){
-	       	scope.isDisabled = true;
-
-	       }
-	        }, true);
-
-      scope.newEntry = function(){
-      	if(scope.isDisabled===true){
-	      	if(scope.thisDate.obj && scope.thisTime.hour){
-		      	var d = moment(scope.thisDate.obj);
-		      	d.hour(scope.thisTime.hour);
-		      	d.minute(scope.thisTime.mins);
-		      }
+      return function(scope, element, attrs, controller){
+        var lastDate = '';
 
 
-	        var locObject = {
-	          locId:'loc'+attrs.locid,
-	          date:d,       
-	          area:scope.area
-	        };
-	       
-	        LocationServices.checkIfBooked(d,scope.area.name)
-	        controller.addNewLocation(locObject);
-	    }
+        scope.isDisabled = false;
+        scope.finished = false;
+
+
+         scope.$watch('[startDate, startTime, area, endTime]', function (a) {
+  	       if(a[0] && a[1] && a[2] && a[3]){
+  	       	scope.isDisabled = true;
+            element.addClass('valid');
+
+            var startDate = moment(scope.startDate.obj);
+            startDate.hour(scope.startTime.hour);
+            startDate.minute(scope.startTime.mins)
+            var endDate =  moment(scope.startDate.obj);
+            endDate.hour(scope.endTime.hour);
+            endDate.minute(scope.endTime.mins);
+
+            var locObject = {
+            locId:'loc'+attrs.locid,
+            startDate:startDate,  
+            endDate: endDate,     
+            area:scope.area
+            };
+
+            element.addClass('submitted');
+            LocationServices.checkIfBooked(startDate,scope.area.name)
+            controller.addNewLocation(locObject);
+  	       }
+  	        }, true);
+
+        
       }
     }
   }
@@ -231,24 +237,6 @@ devApp.directive('addLocation',function($compile){
 })
 
 
-/**
-*
-* Creates  Location Dropdown Select Button with Locations taken from the Locations Services
-*
-**/
-
-
-.directive('locationDropdown',
-  function($compile, LocationServices){
-   return{
-    restrict: "E",
-    replace:true,
-    template:'<select ng-options="l.name for l in locations"></select>',
-    link: function($scope, element, attrs){
-      $scope.locations = LocationServices.getLocations();
-    }
-  }
-})
 
 
 
@@ -366,6 +354,54 @@ devApp.directive('addLocation',function($compile){
 
 })
 
+
+
+/**
+*
+* Creates  Location Dropdown Select Button with Locations taken from the Locations Services
+*
+**/
+
+
+.directive('locationDropdown',
+  function($parse, $compile, LocationServices){
+
+    var compiler = function(element, attrs){
+
+      var model = $parse(attrs.ngModel);
+
+    return function(scope, element, attrs, controller){
+      var a = LocationServices.getLocations();
+      var elAppend = $(element).find('.locationList');
+
+      var selectOptions = {
+        tokenSeparators: [","],
+        data:a,
+        width:'40%',
+        multiple: false,
+
+      }
+
+      var processNewLocation = function(newLoc){
+        scope.$apply(function(scope){
+          model.assign(scope,newLoc);
+        })
+      }
+
+      $(element).find('input').select2(selectOptions)
+      .on('change',function(val){
+          processNewLocation(val.added);
+      });
+    }
+  };
+
+   return{
+    restrict: "E",
+    compile: compiler,
+    template:"<input ng-model='area' type='hidden' id='category' /><div class='locationList'></div>",
+   
+  }
+})
 
 
 /**

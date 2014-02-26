@@ -1,4 +1,4 @@
-
+@charset "utf-8";
 .standardEventForm{
    label{
     font-size:1.25rem;
@@ -13,34 +13,88 @@
     width:100%;
   }
 
+/**
+*
+* Add a Location Directive
+*
+**/
+
 
   .form-group.location{
+    transition:all 0.4s;
     .fa-plus-circle{
       font-size:50px;
       color:black;
       float:left;
     }
-    .fa-check-circle-o{
-      font-size: 85px;
-      color: white;
-      float: left;
-      position: absolute;
-      right: 15px;
-      bottom: 10px;
-      &:hover{
-        color:$yellow;
-      }
-    }
+    
     location{
       height: 100%;
       float: left;
       width: 540px;
       margin-right: 5px;
-      background-color: #2a2a2a;
-      color: white;
+      border:1px solid $yellow;
+      border-radius:15px;
       padding: 25px;
       position: relative;
       transition:all 0.4s;
+      
+      label{
+      }
+
+      input[text]{
+        border-radius:5px;
+        border:1px solid $yellow;
+      }
+
+
+      input.picker__input{
+      padding: 11px;
+      border-radius: 5px;
+      font-size: 17px;
+      border: 1px solid $yellow;
+      min-width: 195px;
+      }
+
+      .fa-check-circle-o{
+        font-size: 85px;
+        color: white;
+        float: left;
+        position: absolute;
+        right: 15px;
+        bottom: 10px;
+        text-shadow: -1px -1px 0 #333, 0px -1px 0 #333, 1px -1px 0 #333, -1px 1px 0 #333, 0px 1px 0 #333, 1px 1px 0 #333
+        
+      }
+
+      &.valid .fa-check-circle-o{color: $yellow;text-shadow:none;}
+
+      &.valid .fa-check-circle-o:hover{
+          color:$black;
+        }
+
+      
+      &.submitted{
+
+        border-radius: 0;
+        background-color: $yellow;
+        label{
+          color:white;
+        }
+
+        .fa-check-circle-o{
+          color:white;
+            &:hover{
+          color:$black;
+        }
+        }
+        
+      }
+
+
+
+
+
     }
   }
 

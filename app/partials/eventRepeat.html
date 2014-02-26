@@ -1,0 +1,9 @@
+<select ng-model="eventRepeat" ng-options="eventRepeat.type for eventRepeat in eventRepeatTypes" name="" id="">{{eventRepeat}}</select>
+<div ng-show="eventRepeat.type=='Never'"><h1>No Repeat</h1></div>
+<div ng-show="eventRepeat.type=='Daily'">
+ 
+  <label for="">Repeat Every</label>
+  <select style="display:inline" ng-model="dailyDay" ng-options="days.day for days in dailyRepeatDays">{{days}}</select>
+</div>
+<div ng-show="eventRepeat.type=='Weekly'"><h1>Weekly</h1></div>
+<div ng-show="eventRepeat.type=='Monthly'"><h1>Monthly</h1></div>
