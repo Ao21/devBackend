@@ -16,6 +16,7 @@ devApp.controller('NewEvController',
     $scope.staffIncluded = [];
     $scope.staffDone = false;
 
+    $scope.isValidForm = false;
 
 
     this.getLocLength = function(){
@@ -59,9 +60,19 @@ devApp.controller('NewEvController',
     $scope.submitForm = function() {
 
 			// check to make sure the form is completely valid
-			if ($scope.userForm.$valid) {
-				alert('our form is amazing');
+      if($scope.standardEventForm.eventname.$valid && $scope.standardEventForm.eventDescription.$valid && $scope.locationDone === true && $scope.staffDone === true) {
+				var eventObject = {
+          name: $scope.standardEventForm.eventname.$viewValue,
+          description: $scope.standardEventForm.eventDescription.$viewValue,
+          locations: $scope.locationList,
+          staff: $scope.staffIncluded
+        }
+
+        console.log(eventObject);
 			}
+      else{
+        alert('FORM INVALID')
+      }
 
 		};
 
@@ -341,13 +352,28 @@ devApp.directive('addLocation',function($compile){
      var model = $parse(attrs.ngModel);
 
 		return function(scope, element, attrs, controller){
-			var a = UserServices.getAllUsersJson();
+
 			var elAppend = $(element).find('.staffList');
+
+      var curList = [];
+
+      UserServices.getAllUsersJson().then(gotUsers);
+      function gotUsers(response){
+        console.log(response);
+        for (var i = response.length - 1; i >= 0; i--) {
+          var obj = {text: response[i].text, id: response[i].id}
+          curList.push(obj);
+        };
+
+        load();
+      }
+
+      function load(){
 
 			var selectOptions = {
 				tags:true,
 				tokenSeparators: [","],
-				data:a,
+				data: curList,
 				width:'40%',
 				createSearchChoice: function(term, data) {
 				    if ($(data).filter(function() {
@@ -367,6 +393,8 @@ devApp.directive('addLocation',function($compile){
 
 			var sel = $(element).find('input').select2(selectOptions)
       .on('change',function(val){
+
+
         if(val.added){
           scope.$apply(function(scope){
               scope.staffIncluded.push(val.added);
@@ -379,7 +407,19 @@ devApp.directive('addLocation',function($compile){
           });
         };
 
+        if(scope.staffIncluded.length > 0){
+          scope.$apply(function(scope){
+          scope.staffDone = true;
+        });
+        }
+        else{
+           scope.$apply(function(scope){
+          scope.staffDone = false;
+        });
+        }
+
       });
+    };
 		
 	}
 

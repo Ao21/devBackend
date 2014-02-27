@@ -61,6 +61,7 @@
 			<p ng-animate ng-show="standardEventForm.eventDescription.$invalid && !standardEventForm.eventDescription.$pristine" class="help-block">You need to give a longer description of the event.</p>
 			<h4 ng-class="{active:locationDone}">Location</h4>
 			<h4 ng-class="{active:staffDone}">Staff</h4>
+			<button ng-submit="submitForm()" ng-disabled="{{isFormValid}}">Add Your Event.</button>
 
 	</div>
     </form>

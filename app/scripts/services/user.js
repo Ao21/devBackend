@@ -4,7 +4,7 @@ angular.module('devApp.userServices', [])
   .service('UserServices', function UserServices($http, Restangular) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
-
+    var _userList = Restangular.all('api/userList/');
 
     var user = {'userName':'Ro','imagePath':'/images/profile.jpg'};
     var users= [{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'},{'id':'0','text':'Ronan Brett','userName': 'Ro', 'imagePath':'/images/profile.jpg'}];
@@ -14,8 +14,7 @@ angular.module('devApp.userServices', [])
         return user;
       },
       getAllUsersJson: function(){
-      	return users;
-
+         return _userList.getList();
       }
     };
 
