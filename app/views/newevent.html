@@ -19,24 +19,23 @@
 	</section>
 
 
+	
+
 
 	<form name="standardEventForm" class="standardEventForm one-whole float--left" ng-submit="submitForm()" novalidate>
 		<h1 class="push--top flush--bottom">General Details</h1>
 		<div class="form-group standard">
 			<label class="flush--top">What is the name of your event?</label>
-			<input name="name" ng-model="name" type="text" blur-focus required>
-			<p ng-show="standardEventForm.name.$invalid && !standardEventForm.name.$pristine" class="help-block">The name of the event is required.</p>
+			<input name="eventname" ng-model="event.name" type="text" blur-focus required>
+			
 
 		</div>
 		<div class="form-group standard">
 			<label for="">Can you give a brief description of the event?</label>
-			<textarea blur-focus ng-model="event.description"></textarea>
+			<textarea ng-minlength="25" name="eventDescription" required blur-focus ng-model="event.description"></textarea>
 		</div>
 
-		<div class="form-group standard">
-			
-			<repeat-event></repeat-event>
-		</div>
+		
 		<div class="form-group location">
 			<label for="">Where is the event on?</label>
 			<div>
@@ -51,15 +50,34 @@
 			<label>Who is in involved in the event?</label>
 			<add-staff></add-staff>
 		</div>
+		<div class="floatingInfo soft">
+		<h1>{{chosenEventType || 'Lecture'}}</h1>
+		<p>Details about Event Type goes here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, dignissimos, nihil tempora sint odit fuga quo quos aspernatur aperiam itaque omnis ad voluptates reiciendis assumenda.</p>
+		<h2>Checklist</h2>
+		<p>You need to complete these items before you can add an Event to the event's system.</p>
+			<h4 ng-class="{active:standardEventForm.eventname.$valid,error:standardEventForm.eventname.$invalid && !standardEventForm.eventname.$pristine}">Name</h4>
+			<p ng-animate ng-show="standardEventForm.eventname.$invalid && !standardEventForm.eventname.$pristine" class="help-block">The name of the event is required.</p>
+			<h4 ng-class="{active:standardEventForm.eventDescription.$valid,error:standardEventForm.eventDescription.$invalid && !standardEventForm.eventDescription.$pristine}">Description</h4>
+			<p ng-animate ng-show="standardEventForm.eventDescription.$invalid && !standardEventForm.eventDescription.$pristine" class="help-block">You need to give a longer description of the event.</p>
+			<h4 ng-class="{active:locationDone}">Location</h4>
+			<h4 ng-class="{active:staffDone}">Staff</h4>
+
+	</div>
     </form>
     
 
 
 <section class="float--left">
 	<div date-picker="start"></div>
+	<h1>STaff</h1>
+	<li ng-repeat="staff in staffIncluded" 
+		>{{staff}}</li>
+
 		<h1>Dates</h1>
 		<li ng-repeat="date in locationList" 
 		>{{date}}</li>
+
+
 
 
 </section>
