@@ -11,6 +11,12 @@ devApp.controller('NewEvController',
   	$scope.onceOrSeriesToggle= true;
 
     $scope.locationList = [];
+    $scope.locationDone = false;
+
+    $scope.staffIncluded = [];
+    $scope.staffDone = false;
+
+
 
     this.getLocLength = function(){
       //return $scope.locationList.length;
@@ -24,9 +30,10 @@ devApp.controller('NewEvController',
     }
 
 
+ 
+    /* Add A Location Controller Directive Function - needs to use parent scope because the location controller has isolated scope, unlike the staff directive that inherits scope straight from this controller and doesn't can just change the scopes values inside of it (should definitely remember this) */
     
-
-    
+   
     this.addNewLocation = function(val){
       var nVal = _.clone(val);
       var doesThisExist = _.find($scope.$parent.locationList,{'locId':val.locId});
@@ -35,10 +42,17 @@ devApp.controller('NewEvController',
       }
       else{
       	var a = _.indexOf($scope.$parent.locationList,{'locId':val.locId});
-			$scope.$parent.locationList.splice(a, 1);
+			  $scope.$parent.locationList.splice(a, 1);
       	$scope.$parent.locationList.push(val);
 
+
       }
+      if($scope.$parent.locationList.length>0){
+          $scope.$parent.locationDone = true;
+        }
+        else{
+          $scope.$parent.locationDone = false;
+        }
     }
 
 
@@ -316,11 +330,16 @@ devApp.directive('addLocation',function($compile){
 *
 * Staff Picker Directive
 *
+* SO DODGY. 
+*
+*
 **/
 
 
-.directive('addStaff',function(UserServices){
+.directive('addStaff',function($parse, UserServices){
 	var compiler = function(element, attrs){
+     var model = $parse(attrs.ngModel);
+
 		return function(scope, element, attrs, controller){
 			var a = UserServices.getAllUsersJson();
 			var elAppend = $(element).find('.staffList');
@@ -336,20 +355,40 @@ devApp.directive('addLocation',function($compile){
 				    }).length === 0) {
 				      return {
 				        id: term,
+                type: 'selfAdded',
 				        text: term
 				      };
 				    }
 				  },
 				multiple: true,
-			}
+      };
+			
+      
 
-			$(element).find('input').select2(selectOptions);
-		}
-	};
+			var sel = $(element).find('input').select2(selectOptions)
+      .on('change',function(val){
+        if(val.added){
+          scope.$apply(function(scope){
+              scope.staffIncluded.push(val.added);
+            });
+        };
+        if(val.removed){
+          var a = _.indexOf(scope.staffIncluded,{'id':val.removed.id});
+          scope.$apply(function(scope){
+            scope.staffIncluded.splice(a, 1);
+          });
+        };
+
+      });
+		
+	}
+
+};
 	return{
 		restrict: "E",
 		compile: compiler,
-		template: "<input type='hidden' id='category' /><div class='staffList'></div>"
+    controller:'NewEvController',
+		template: "<input ng-model='people' type='hidden' id='category' /><div class='staffList'></div>"
 	}
 
 })

@@ -13,6 +13,9 @@
     width:100%;
   }
 
+
+  
+
 /**
 *
 * Add a Location Directive
@@ -31,9 +34,9 @@
     location{
       height: 100%;
       float: left;
-      width: 540px;
+      width: 380px;
       margin-right: 5px;
-      border:1px solid $yellow;
+      border:1px solid #333;
       border-radius:15px;
       padding: 25px;
       position: relative;
@@ -44,7 +47,7 @@
 
       input[text]{
         border-radius:5px;
-        border:1px solid $yellow;
+        border:1px solid #333;
       }
 
 
@@ -52,7 +55,7 @@
       padding: 11px;
       border-radius: 5px;
       font-size: 17px;
-      border: 1px solid $yellow;
+      border: 1px solid #333;
       min-width: 195px;
       }
 
@@ -76,10 +79,17 @@
       
       &.submitted{
 
-        border-radius: 0;
-        background-color: $yellow;
+        border: 1px solid $yellow;
         label{
-          color:white;
+          color:#333;
+        }
+
+        input.picker__input{
+          border: 1px solid $yellow;
+        }
+
+        input[text]{
+          border: 1px solid $yellow;
         }
 
         .fa-check-circle-o{
@@ -110,34 +120,38 @@
     border: 1px solid white;
     font-size: 24px;
     padding: 13px;
-    min-width: 40%;
+    min-width: 60%;
     transition: all 0.4s;
+    background-color: white!important;
+    color:black!important;
+    border: 1px solid #333!important;
+    border-radius: 15px!important;
       }
 
 textarea{min-height: 250px;}
 
 
   input.ng-invalid,textarea.ng-invalid{
-    border: 1px solid #9e0b0f;
-    background-color: #9e0b0f;
-    /* border-radius: 30px; */
-    color: white;
-    border-radius: 0px;
+
+    background-color: white!important;
+    color:black!important;
+    border: 2px solid #9e0b0f!important;
+    border-radius: 15px!important;
+
   }
   input.has-visited.ng-valid,textarea.has-visited.ng-valid{
-    border: 1px solid #f5af00;
-    background-color: #f5af00;
-    /* border-radius: 30px; */
-    color: white;
-    border-radius: 0px;
+    background-color: white!important;
+    color:black!important;
+    border: 1px solid #f5af00!important;
+    border-radius: 15px!important;
   }
   input.ng-dirty,textarea.ng-dirty{}
 
 
-  input.ng-pristine,input.has-focus,textarea.ng-pristine,textarea.has-focus{
+  input.ng-pristine,textarea.ng-pristine,input.has-focus,text-area.has-focus{
     background-color: white!important;
     color:black!important;
-    border: 1px solid #f5af00!important;
+    border: 1px solid #333!important;
     border-radius: 15px!important;
 
   }
@@ -220,3 +234,74 @@ add-staff{
      background-color:$yellow;
   }
 }
+
+
+/*==========  Floating Info on Create Event First Page  ==========*/
+
+
+.floatingInfo{
+
+    width: 20%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100%;
+    background-color: #f5af00;
+    color: white;
+    margin-top: 120px;
+
+    p{font-weight:200;font-size:22px;}
+
+
+    h4{
+      position:relative;
+      font-size: 35px;
+      margin-left:65px;
+      font-weight:200;
+    }
+
+    h4:before{
+      font-family: 'FontAwesome';
+      content: "\f111";
+      position: absolute;
+      left: -65px;
+      font-size: 60px;
+      top: -15px;
+    }
+
+    h4.error:before{
+      font-family: 'FontAwesome';
+      content: "\f06a";
+      color:#9e0b0f;
+      position: absolute;
+      left: -65px;
+      font-size: 60px;
+      top: -15px;
+    }
+
+    h4.active:before{
+      font-family: 'FontAwesome';
+      content: "\f058";
+      position: absolute;
+      left: -65px;
+      font-size: 60px;
+      top: -15px;
+    }
+
+    .help-block{
+
+    font-size: 18px;
+  margin-top: -23px;
+  margin-left: 65px;
+  font-weight: bold;
+  color: black;
+
+    
+
+
+  }
+
+  }
+
+
+  
