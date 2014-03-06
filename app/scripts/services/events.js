@@ -5,14 +5,20 @@ angular.module('devApp.eventServices', [])
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     var _eventsService = Restangular.all('api/events/');
+    var _eventService = Restangular.all('api/event/');
 
 
     return{
-      getAnEvent: function(){
-        
-         return _eventsService.getList();
-
+      getAnEvent: function(id){
+         
+         return  _eventService.one(id).get();
        
+      },
+
+      getAllEvents: function(){
+
+        return _eventsService.getList();
+
       },
 
       createEvent: function(eventDetails){

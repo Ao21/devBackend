@@ -51,11 +51,11 @@
 			<add-staff></add-staff>
 		</div>
 		<div class="floatingInfo soft">
-		<h1>{{chosenEventType || 'Lecture'}}</h1>
+		<h1 class="flush--bottom">{{chosenEventType || 'Lecture'}}</h1>
 		<p>Details about Event Type goes here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, dignissimos, nihil tempora sint odit fuga quo quos aspernatur aperiam itaque omnis ad voluptates reiciendis assumenda.</p>
-		<h2>Checklist</h2>
+		<h2 class="flush--bottom">Checklist</h2>
 		<p>You need to complete these items before you can add an Event to the event's system.</p>
-			<h4 ng-class="{active:standardEventForm.eventname.$valid,error:standardEventForm.eventname.$invalid && !standardEventForm.eventname.$pristine}">Name</h4>
+			<h4  ng-class="{active:standardEventForm.eventname.$valid,error:standardEventForm.eventname.$invalid && !standardEventForm.eventname.$pristine}">Name</h4>
 			<p ng-animate ng-show="standardEventForm.eventname.$invalid && !standardEventForm.eventname.$pristine" class="help-block">The name of the event is required.</p>
 			<h4 ng-class="{active:standardEventForm.eventDescription.$valid,error:standardEventForm.eventDescription.$invalid && !standardEventForm.eventDescription.$pristine}">Description</h4>
 			<p ng-animate ng-show="standardEventForm.eventDescription.$invalid && !standardEventForm.eventDescription.$pristine" class="help-block">You need to give a longer description of the event.</p>

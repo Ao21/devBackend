@@ -25,11 +25,15 @@ var devApp = angular.module('devApp', [
         templateUrl: 'partials/login',
         controller: 'LoginCtrl'
       })
-    .when('/event/newEvent',{
+    .when('/newEvent',{
       controller: 'NewEvController',
       templateUrl: '/views/newevent.html',
       authenticate: false
     })
+    .when('/event/:eventId',{
+        controller: 'EventController',
+        templateUrl: 'views/event.html'
+      })
     .when('/event/newEvent2',{
       controller: 'newLocation',
       templateUrl: '/views/newLocation.html'

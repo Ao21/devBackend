@@ -3,9 +3,35 @@
 =============================================*/
 
 
+/*=============================================
+
+  Event Object
+
+  obj:{
+    name: name,
+    description: description,
+    locations:
+      [{
+        locId: id,
+        startDate: startdate,
+        endDate: enddate,
+        area:{
+          name: name,
+          imshrPath: imgpath
+        }
+      }],
+    staff:{
+      text: userName,
+      id: userId
+    }
+  }
+
+
+=============================================*/
+
 
 devApp.controller('NewEvController', 
-  function($scope, EventTypeService){
+  function($scope, EventTypeService, Events){
 
 
   	$scope.onceOrSeriesToggle= true;
@@ -65,9 +91,11 @@ devApp.controller('NewEvController',
           name: $scope.standardEventForm.eventname.$viewValue,
           description: $scope.standardEventForm.eventDescription.$viewValue,
           locations: $scope.locationList,
-          staff: $scope.staffIncluded
+          staff: $scope.staffIncluded,
+          type: $scope.chosenEventType
         }
 
+        Events.createEvent(eventObject);
         console.log(eventObject);
 			}
       else{
@@ -364,7 +392,7 @@ devApp.directive('addLocation',function($compile){
           var obj = {text: response[i].text, id: response[i].id}
           curList.push(obj);
         };
-
+        console.log(curList);
         load();
       }
 
@@ -397,6 +425,7 @@ devApp.directive('addLocation',function($compile){
 
         if(val.added){
           scope.$apply(function(scope){
+            console.log(val.added);
               scope.staffIncluded.push(val.added);
             });
         };
