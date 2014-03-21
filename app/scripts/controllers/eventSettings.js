@@ -1,4 +1,4 @@
-devApp.controller('EventController', 
+devApp.controller('EventSettingsController', 
   function($scope, $routeParams, $location,Events){
 
 

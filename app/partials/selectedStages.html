@@ -1,0 +1,15 @@
+<section class="stages push-half--ends">
+     <div class="grid">
+       <div ng-repeat="stage in stageInfo" class="grid__item one-fifth stage push-half--ends ">
+        <div class="stage__box {{stage.defaultColor}} push-half--bottom">
+          <p>{{stage.name}}</p>
+          <i ng-click="removeItemFromStage(stage)" ng-show="{{stage.removable}}"  class="fa fa-minus-circle"></i>
+        </div>
+        <i ng-repeat="users in stage.userGroups" class="fa fa-user fa-2 {{users}}"></i>
+        <h4>Stage Items</h4>
+        <p ng-repeat="items in stage.stageItems" class="flush--bottom">{{items}}</p>
+         
+       </div>
+       <div add-new-stage></div>
+     </div>
+   </section>

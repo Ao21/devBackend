@@ -1,0 +1,24 @@
+<div class="pane main">
+  <div class="menu pulled">
+    <p>Add Stages to {{event.name}}</p>
+  </div>
+   <h4 class="weight--light flush--bottom">Event Type</h4>
+   <h1 class="mega weight--light">{{event.eventType}}</h1>
+   <section class="addNewStages soft push--bottom" ng-show="showAddNewStage">
+     <h1>Add a new stage</h1>
+     <alternative-stage></alternative-stage>
+   </section>
+   <h4 class="weight--light flush--bottom">Event Stages</h4>
+
+
+
+
+<selected-stage-list></selected-stage-list>
+
+</div>
+
+
+  <div class="pane side">
+   <p ng-click="finaliseEvent()">Finalise Your Event</p>
+
+  </div>

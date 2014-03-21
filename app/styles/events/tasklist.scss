@@ -1,4 +1,9 @@
 @charset "utf-8";
+
+
+.tabs-content { display: none; }
+.tabs-content.active { display: block; }
+
 .tasklist{
 
 	.currentStage{

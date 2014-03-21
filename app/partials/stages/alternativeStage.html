@@ -1,0 +1,1 @@
+<div class="grid"><div ng-repeat="altStage in alternativeStages" ng-click="itemClicked($index, this.altStage)" ng-class="{'disabled':altStage.disabled}" class="grid__item one-fifth class_{{altStage.disabled}}"><div class="altStage"  ng-class="{ active : $index == selectedIndex }"><p>{{altStage.name}}</p></div></div></div>

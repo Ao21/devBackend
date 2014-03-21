@@ -3,94 +3,33 @@
 		<p>events</p>
 	</div>
 	<section class="eventslist push-half--top">
-		<div class="eventslist__event one-whole soft--ends expanded">
+		<div ng-repeat="event in dashboardEvents" class="eventslist__event one-whole soft--ends">
 			<div class="one-whole">
 				<div class="one-half float--left">
-					<h4 class='push-half--bottom'>Infoday</h4></div>
-				<div class="one-half float--left">
-					<p class="text--right push-half--bottom">22nd Februrary 2014</p></div>
-			</div>
-			<div class="progressbar one-whole float--left">
-				<div class="cell active"></div>
-				<div class="cell"></div>
-				<div class="cell"></div>
-			</div>
-			<div class="tasklist  one-whole float--left">
-				<div class="currentStage yellow soft-half">
-					<h4 class="flush--bottom">Initial Stage</h4>
-				</div>
-				
-				<div class="task push--ends">
-					<h4 class="tasklist__item circle alert">Description</h4>
-					
-					<div class="commentlist soft-half--left soft-half--top soft--bottom two-thirds">
-						<div class="commentlist--loadmorecomments">
-							<p>load more comments</p>
-						</div>
-						<div class="commentlist__item media">
-							<img class="media__img" src="images/profile.jpg" alt="">
-							<div class="media__body">
-								<h5 class="flush--bottom">Claire</h5>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, facere praesentium vero est natus id voluptatem accusantium! Magnam laborum ad nobis nam assumenda dolores quod.</p></div>
-							
-						</div>
-						<div class="commentlist__item media">
-							<img class="media__img" src="images/profile.jpg" alt="">
-							<div class="media__body">
-								<h5 class="flush--bottom">Claire</h5>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, id, saepe at ab non et officia earum nam vel minima iusto quod dolorum error facilis sit cum explicabo corporis! At, amet, repellendus, dicta, unde fugiat dignissimos praesentium neque iusto nesciunt placeat qui quis sapiente ex minus iste fuga necessitatibus commodi saepe accusantium!</p></div>
-							
-						</div>
-						<div class="commentlist__item media">
-							<img class="media__img" src="images/profile.jpg" alt="">
-							<div class="media__body">
-								<h5 class="flush--bottom">Claire</h5>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, doloribus.</p></div>
-							
-						</div>
+					<a href="#/event/{{event._id}}"><h4 class='push-half--bottom'>{{event.name}}</h4></div></a>
+					<div class="one-half float--left">
+						<p class="text--right push-half--bottom"><span ng-repeat="date in event.dates">{{date | date:medium }}{{$last ? '' : ', '}}</span></p></div>
 					</div>
-					<h4 class="tasklist__item circle alert">Location</h4>
-					<h4 class="tasklist__item circle alert">MailChimp: Audience</h4>
-					<h4 class="tasklist__item circle alert">Description</h4>
+
+					<div tabs tabsdata='event.eventStages' autorotate='1000'>
+						<div tabsnav ></div>
+						<div tabscontent>
+							<div class="tasklist  one-whole float--left">
+								<div class="currentStage yellow soft-half">
+									<h4 class="flush--bottom">{{tab.name}}</h4>
+								</div>
+
+								<div class="task push--ends">
+									<h4 ng-repeat="tasks in tab.stageItems" class="tasklist__item circle alert">{{tasks}}</h4>
+
+								</div>
+							</div>
+						</div>
+					</div	>
 				</div>
-			</div>
+			</section>
 
 		</div>
-		<div class="eventslist__event one-whole soft--ends">
-			<div class="one-whole">
-				<div class="one-half float--left">
-					<h4 class='push-half--bottom'>TNL: Lecture Series (3 Outstanding Items)</h4></div>
-				<div class="one-half float--left">
-					<p class="text--right push-half--bottom">22nd Februrary 2014</p></div>
-			</div>
-			<div class="progressbar one-whole float--left">
-				<div class="cell complete"></div>
-				<div class="cell "></div>
-			</div>
-			
-
+		<div class="pane side soft--left">
+			<div class="menu"></div>
 		</div>
-		<div class="eventslist__event one-whole soft--ends">
-			<div class="one-whole">
-				<div class="one-half float--left">
-					<h4 class='push-half--bottom'>Graduate School Exhibition (11 Outstanding Items)</h4></div>
-				<div class="one-half float--left">
-					<p class="text--right push-half--bottom">22nd Februrary 2014</p></div>
-			</div>
-			<div class="progressbar one-whole float--left">
-				<div class="cell complete"></div>
-				<div class="cell complete"></div>
-				<div class="cell complete"></div>
-				<div class="cell"></div>
-				<div class="cell"></div>
-				<div class="cell"></div>
-				<div class="cell"></div>
-			</div>
-			
-		</div>
-	</section>
-
-</div>
-<div class="pane side soft--left">
-	<div class="menu"></div>
-</div>

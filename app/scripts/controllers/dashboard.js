@@ -1,2 +1,10 @@
 devApp.controller('DashboardController', 
-  function($scope){});
+  function($scope, Events){
+
+    $scope.dashboardEvents = Events.getEventsByUser().$object;
+
+
+
+
+  });
+

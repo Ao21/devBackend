@@ -6,6 +6,7 @@ var devApp = angular.module('devApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
+  'ngAnimate',
   'ngRoute',
   'restangular',
   'devApp.eventServices',
@@ -25,14 +26,25 @@ var devApp = angular.module('devApp', [
         templateUrl: 'partials/login',
         controller: 'LoginCtrl'
       })
+    /* New Event Routes */
     .when('/newEvent',{
       controller: 'NewEvController',
       templateUrl: '/views/newevent.html',
       authenticate: false
     })
+    .when('/newEvent/addStages/:eventId',{
+      controller: 'NewEventAddStagesController',
+      templateUrl: '/views/addStages.html',
+      authenticate: false
+    })
+    /* Event Routes */
     .when('/event/:eventId',{
         controller: 'EventController',
         templateUrl: 'views/event.html'
+      })
+    .when('/event/:eventId/settings',{
+        controller: 'EventSettingsController',
+        templateUrl: 'views/eventSettings.html'
       })
     .when('/event/newEvent2',{
       controller: 'newLocation',

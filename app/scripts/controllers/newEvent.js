@@ -44,6 +44,8 @@ devApp.controller('NewEvController',
 
     $scope.isValidForm = false;
 
+    $scope.eventType = 'Lecture';
+
 
     this.getLocLength = function(){
       //return $scope.locationList.length;
@@ -54,7 +56,11 @@ devApp.controller('NewEvController',
 
     this.setEventType = function(e){
     	$scope.$parent.chosenEventType = e;
+      $scope.$parent.eventType = e;
     }
+
+
+
 
 
  
@@ -92,14 +98,15 @@ devApp.controller('NewEvController',
           description: $scope.standardEventForm.eventDescription.$viewValue,
           locations: $scope.locationList,
           staff: $scope.staffIncluded,
-          type: $scope.chosenEventType
+          eventType: $scope.eventType
         }
 
         Events.createEvent(eventObject);
-        console.log(eventObject);
+        
 			}
       else{
         alert('FORM INVALID')
+        //console.log($scope.eventType);
       }
 
 		};
@@ -170,7 +177,7 @@ devApp.directive('eventTypeDirective', function($parse, EventTypeService){
       onSelect: '&select',
       onDeselect: '&deselect'
     },
-    template:   '<div ng-repeat="eventType in eventTypes" ng-click="itemClicked($index, this.eventType)" class="grid__item one-fifth"><div class="eventType"  ng-class="{ active : $index == selectedIndex }"><div class="outerContainer"><div class="innerContainer"><p>{{eventType}}</p></div></div></div></div>',
+    template:   '<div ng-repeat="eventType in eventTypes" ng-click="itemClicked($index, this.eventType)" class="grid__item one-fifth"><div class="eventType"  ng-class="{ active : $index == selectedIndex }"><p>{{eventType}}</p></div></div>',
     link: function(scope, element, attrs, evTypeCtrl ){
       scope.eventTypes = EventTypeService.getAllEventTypes();
 
